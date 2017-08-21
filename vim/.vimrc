@@ -8,14 +8,16 @@ set nocompatible
 
 " Enable Pathogen plugin manager
 execute pathogen#infect()
-syntax on                                           " Turn on syntax highlighting
-filetype plugin on                                  " Detect type of file for certain Vim plugins
+
+syntax on           " Turn on syntax highlighting
+filetype plugin on  " Detect type of file for certain Vim plugins
 filetype indent on
 
 " Display
 set number          " Enable line numbering
 set ruler           " Show current position
 set cmdheight=2     " Height of command bar
+set cursorline      " Show cursor line
 
 """ Select colorscheme
 colorscheme monokai
@@ -23,13 +25,13 @@ colorscheme monokai
 " Tabs and indentation
 set expandtab       " Spaces instead of hard tabs
 set smarttab        " Enable smart tabs
-set softtabstop=4   " Set soft tab size
-set shiftwidth=4    " Set indentation size
+set softtabstop=2   " Set soft tab size
+set shiftwidth=2    " Set indentation size
 set lbr             " Set linebreak
 set tw=300
 
 " Columns
-set colorcolumn=110
+set colorcolumn=80  " Set color column to 80 character limit
 highlight ColorColumn ctermbg=darkgray
 
 set ai              " Auto indent
@@ -51,18 +53,23 @@ endif
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 """ NERDTree - File explorer plugin
-let g:NERDTreeWinPos="left"                           " Align NERDTree panel to the left
-" let g:NERDTreeDirArrowExpandable="+"                " Workaround for NERDTree special characters
-" let g:NERDTreeDirArrowCollapsible="~"
-nmap <F2> :NERDTreeToggle<CR>                         " Enable F2 shortcut for NERDTree
+let g:NERDTreeWinPos="left"                 " Align NERDTree panel to the left
+let g:NERDTreeShowHidden=1                  " Show hidden files
+" let g:NERDTreeDirArrowExpandable="+"      " Workaround for NERDTree special
+" let g:NERDTreeDirArrowCollapsible="~"     " characters
+nmap <F2> :NERDTreeToggle<CR>               " Enable F2 shortcut for NERDTree
 
 """ Tagbar - C tag browser plugin
 let g:tagbar_usearrows=1
-highlight TagbarSignature guifg=Green ctermfg=Green " Show green fonts with Monokai colorscheme
-nmap <F8> :TagbarToggle<CR>                         " Enable F8 shortcut for Tagbar
+
+" Show green fonts with Monokai colorscheme
+highlight TagbarSignature guifg=Green ctermfg=Green
+
+" Enable F8 shortcut for Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 """ Airline - Statusbar plugin
-set laststatus=2                                    " Enable statusline by default
+set laststatus=2                            " Enable statusline by default
 "set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%h\ \ \ Line:\ %l
 let g:airline_exclude_preview=1
 let g:airline#extensions#csv#enabled=1
@@ -85,10 +92,11 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0                       " Disable checking when quitting
+let g:syntastic_check_on_wq=0           " Disable syntax checking when quitting
 
 """ YouCompleteMe
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'   " Specify global YCM configuration file
+" Specify global YCM configuration file
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 " Build commands
 nnoremap <F4> :make!<cr>
