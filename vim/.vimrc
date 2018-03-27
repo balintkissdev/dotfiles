@@ -30,6 +30,14 @@ set shiftwidth=2    " Set indentation size
 set lbr             " Set linebreak
 set tw=300
 
+" Show invisible characters
+set list
+set listchars=tab:►-,space:•,trail:$
+
+" Invisible character colors
+highlight NonText ctermfg=darkgray guifg=gray20
+highlight SpecialKey ctermfg=darkgray guifg=gray20 ctermbg=NONE guibg=NONE
+
 " Columns
 set colorcolumn=80  " Set color column to 80 character limit
 highlight ColorColumn ctermbg=darkgray
@@ -96,7 +104,7 @@ let g:syntastic_check_on_wq=0           " Disable syntax checking when quitting
 
 """ YouCompleteMe
 " Specify global YCM configuration file
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " Build commands
 nnoremap <F4> :make!<cr>
