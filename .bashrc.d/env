@@ -1,2 +1,4 @@
-export VISUAL=vim;
-export EDITOR=vim;
+# Set editor to Nvim
+export VISUAL=nvim;
+export EDITOR=nvim;
+
