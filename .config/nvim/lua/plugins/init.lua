@@ -58,7 +58,7 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'auto',
+        theme = 'monokai-pro',
         component_separators = '|',
         section_separators = '',
       },
@@ -108,6 +108,24 @@ return {
     'iamcco/markdown-preview.nvim',
     build = function()
       vim.fn["mkdp#util#install"]()
+    end,
+  },
+
+  { -- File tree explorer
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {
+        open_on_setup = true,
+        open_on_setup_file = true,
+        -- Disable tree explorer on Git commit message edit
+        ignore_ft_on_setup = {
+          "gitcommit",
+        },
+      }
     end,
   }
 }
