@@ -119,13 +119,14 @@ return {
     },
     config = function()
       require('nvim-tree').setup {
-        open_on_setup = true,
-        open_on_setup_file = true,
-        -- Disable tree explorer on Git commit message edit
-        ignore_ft_on_setup = {
-          "gitcommit",
-        },
       }
     end,
-  }
+  },
+
+  { -- Character as colorcolumn
+    'xiyaowong/virtcolumn.nvim',
+    config = function()
+      vim.g.virtcolumn_char = '▏'
+    end,
+  },
 }

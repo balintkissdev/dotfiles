@@ -4,10 +4,10 @@ return {
     priority = 1000,
     config = function()
       require('monokai-pro').setup {
-        terminal_colors = true,
-        filter = "ristretto",
+        filter = "classic",
       }
       vim.cmd.colorscheme 'monokai-pro'
+      vim.cmd.highlight 'ColorColumn guibg=DimGray' -- Enable in tmux
     end,
   },
 }
