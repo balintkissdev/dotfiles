@@ -1,23 +1,44 @@
 #!/bin/env bash
 
-set -x
+dotfiles_folder=$(pwd)
 
-DOTFILES_FOLDER=`pwd`
+backup_timestamp=$(date +%Y-%m-%d-%H-%M-%S)
+dotfiles=(
+    ".bashrc.d"
+    ".config/fontconfig"
+    ".config/i3"
+    ".config/nvim"
+    ".gdbinit"
+    ".local/share/fonts"
+    ".tmux.conf"
+)
 
-echo "Symlinking dotfiles to HOME..."
-ln -fs $DOTFILES_FOLDER/.bashrc.d ~/.bashrc.d
-ln -fs $DOTFILES_FOLDER/gdb/.gdbinit ~/.gdbinit
-ln -fs $DOTFILES_FOLDER/.tmux.conf ~/.tmux.conf
-mkdir -p ~/.config
+# Backup
+backup_folder="$HOME/dotfiles_backup_${backup_timestamp}"
+mkdir -p "$backup_folder"
+for f in "${dotfiles[@]}"; do
+    source_path="${HOME}/${f}"
 
-echo "Setting up fonts..."
-mkdir -p ~/.local/share/fonts
-ln -fs $DOTFILES_FOLDER/.local/share/fonts ~/.local/share/fonts
-ln -fs $DOTFILES_FOLDER/.config/fontconfig ~/.config/fontconfig
+    # If symlink, get actual file instead of copying symlink
+    if [ -L "$source_path" ]; then
+        symlink_target=$(readlink -f "$source_path")
+        if [ -e "$symlink_target" ]; then
+            echo "Backing up ${symlink_target} to ${backup_folder}/${f}"
+            cp -r "$symlink_target" "${backup_folder}/"
+        fi
+    # If regular file
+    elif [ -e "$source_path" ]; then
+        echo "Backing up ~/${f} to ${backup_folder}/${f}"
+        mv "$source_path" "${backup_folder}/"
+    fi
+done
 
-echo "Setting up i3..."
-ln -fs $DOTFILES_FOLDER/.config/i3 ~/.config/i3
+# Create
+for f in "${dotfiles[@]}"; do
+    echo "Symlinking ~/${f}"
+    mkdir -p "${HOME}/$(dirname "${f}")"
+    ln -fsn "${dotfiles_folder}/${f}" "${HOME}/${f}"
+done
 
-echo "Setting up NeoVim..."
-ln -fs $DOTFILES_FOLDER/.config/nvim ~/.config/nvim
-
+source "$HOME/.bashrc"
+echo "Done!"
