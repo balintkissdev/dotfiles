@@ -7,6 +7,7 @@ dotfiles=(
     ".config/fontconfig"
     ".config/i3"
     ".config/nvim"
+    ".env"
     ".gdbinit"
     ".local/share/fonts"
     ".tmux.conf"
