@@ -2,7 +2,6 @@
 
 dotfiles_folder=$(pwd)
 
-backup_timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 dotfiles=(
     ".bashrc.d"
     ".config/fontconfig"
@@ -13,7 +12,42 @@ dotfiles=(
     ".tmux.conf"
 )
 
+dependencies=(
+    alacritty
+    automake
+    fzf
+    g++
+    gcc
+    i3
+    make
+    neovim
+    picom
+    ripgrep
+    tmux
+)
+
+install_dependencies() {
+    echo "Installing dependencies ..."
+    local package_manager
+    if [ -x "$(command -v apt-get)" ]; then
+        # Ubuntu/Debian
+        sudo apt-get update
+        package_manager="apt-get"
+    elif [ -x "$(command -v dnf)" ]; then
+        # Fedora
+        package_manager="dnf"
+    else
+        echo "error: Unsupported package manager. Currently supported package managers: apt-get, dnf. Please install the following dependencies manually:"
+        for dep in "${dependencies[@]}"; do
+            echo "  $dep"
+        done
+    fi
+
+    sudo "$package_manager" install -y "${dependencies[@]}"
+}
+
 # Backup
+backup_timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 backup_folder="$HOME/dotfiles_backup_${backup_timestamp}"
 mkdir -p "$backup_folder"
 for f in "${dotfiles[@]}"; do
@@ -39,6 +73,8 @@ for f in "${dotfiles[@]}"; do
     mkdir -p "${HOME}/$(dirname "${f}")"
     ln -fsn "${dotfiles_folder}/${f}" "${HOME}/${f}"
 done
+
+install_dependencies
 
 source "$HOME/.bashrc"
 echo "Done!"
