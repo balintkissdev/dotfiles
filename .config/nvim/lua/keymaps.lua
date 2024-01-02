@@ -30,3 +30,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- Shortcut exit and save
 vim.keymap.set("n", "W", ":w<CR>")
 vim.keymap.set("n", "Q", ":wqa<CR>")
+
+-- Debug Adapter Protocol (DAP)
+vim.keymap.set("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>")
+vim.keymap.set("n", "<leader>dr", "<cmd> DapContinue <CR>")
