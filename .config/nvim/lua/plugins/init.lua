@@ -33,7 +33,16 @@ return {
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+
+      {
+        'L3MON4D3/LuaSnip',
+        version = "v2.*",
+      },
+
+      'saadparwaiz1/cmp_luasnip'
+    },
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -55,6 +64,7 @@ return {
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    version = "v2.*", -- TODO: Migrate to v3
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
