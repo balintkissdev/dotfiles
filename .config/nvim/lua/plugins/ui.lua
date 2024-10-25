@@ -26,6 +26,7 @@ return {
 
   { -- Character as colorcolumn
     'xiyaowong/virtcolumn.nvim',
+    enabled = vim.g.vscode == nil,
     config = function()
       vim.g.virtcolumn_char = '▏'
     end,

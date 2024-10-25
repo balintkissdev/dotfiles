@@ -9,42 +9,6 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      {
-        'j-hui/fidget.nvim',
-        tag = 'legacy',
-        opts = {},
-      },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-    },
-  },
-
-  { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-
-      {
-        'L3MON4D3/LuaSnip',
-        version = "v2.*",
-      },
-
-      'saadparwaiz1/cmp_luasnip'
-    },
-  },
-
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -61,10 +25,10 @@ return {
     },
   },
 
-
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     version = "v2.*", -- TODO: Migrate to v3
+    enabled = vim.g.vscode == nil, -- VSCode has built-in indent guides
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
@@ -102,12 +66,12 @@ return {
     end,
   },
 
-  { -- Markdown preview
-    'iamcco/markdown-preview.nvim',
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  },
+  -- { -- Markdown preview
+  --   'iamcco/markdown-preview.nvim',
+  --   build = function()
+  --     vim.fn["mkdp#util#install"]()
+  --   end,
+  -- },
 
   { -- File tree explorer
     'nvim-tree/nvim-tree.lua',
