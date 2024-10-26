@@ -3,7 +3,8 @@ return {
   'tpope/vim-fugitive',
 
   { -- Display git blame on current line
-    'APZelos/blamer.nvim',
+    'TimothyGCY/blamer.nvim',
+     -- Contains PowerShell fix, https://github.com/APZelos/blamer.nvim/pull/65
     config = function()
       vim.g.blamer_enabled = 1
     end,
