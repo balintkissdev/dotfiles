@@ -4,6 +4,11 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Disable fsync on Windows because it's slow
+if vim.fn.has('win32') == 1 then
+  vim.g.nofsync = true
+end
+
 -- Strongly advised to disable netrw for nvim-tree plugin
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
