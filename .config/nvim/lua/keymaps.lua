@@ -28,7 +28,6 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- Shortcut exit and save
-vim.keymap.set("n", "W", ":w<CR>")
 vim.keymap.set("n", "Q", ":wqa<CR>")
 
 -- Debug Adapter Protocol (DAP)
