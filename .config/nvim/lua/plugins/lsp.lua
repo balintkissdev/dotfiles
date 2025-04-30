@@ -267,4 +267,23 @@ return {
       },
     },
   },
+
+  { -- Allow Neovim to be used as LSP by formatters
+    -- NOTE: Original 'jose-elias-alvarez/null-ls.nvim' is unmaintained,
+    -- 'nvimtools/none-ls.nvim' became its successor.
+    'nvimtools/none-ls.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      local null_ls = require('null-ls')
+
+      -- Setup black as Python formatter
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.black,
+        },
+      })
+    end,
+  },
 }
