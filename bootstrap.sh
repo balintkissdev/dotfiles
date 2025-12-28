@@ -4,6 +4,7 @@ dotfiles_folder=$(pwd)
 
 dotfiles=(
     ".bashrc.d"
+    ".config/alacritty"
     ".config/fontconfig"
     ".config/i3"
     ".config/nvim"
