@@ -18,7 +18,6 @@ dependencies=(
     alacritty
     automake
     fzf
-    g++
     gcc
     i3
     make
@@ -30,23 +29,32 @@ dependencies=(
 
 install_dependencies() {
     echo "Installing dependencies ..."
-    local package_manager
+    local package_install_cmd
+    # Ubuntu/Debian
     if [ -x "$(command -v apt-get)" ]; then
-        # Ubuntu/Debian
         sudo apt-get update
-        package_manager="apt-get"
+        package_install_cmd=(apt-get install -y)
+        dependencies+=('g++')
+    # Fedora
     elif [ -x "$(command -v dnf)" ]; then
-        # Fedora
-        package_manager="dnf"
+        package_install_cmd=(dnf install -y)
+        dependencies+=('g++')
+    # Arch Linux
+    elif [ -x "$(command -v pacman)" ]; then
+        sudo pacman -Sy
+        package_install_cmd=(pacman -S --noconfirm --needed)
     else
-        echo "error: Unsupported package manager. Currently supported package managers: apt-get, dnf. Please install the following dependencies manually:"
+        echo "error: Unsupported package manager. Currently supported package managers: apt-get, dnf, pacman. Please install the following dependencies manually:"
         for dep in "${dependencies[@]}"; do
             echo "  $dep"
         done
+        exit 1
     fi
 
-    sudo "$package_manager" install -y "${dependencies[@]}"
+    sudo "${package_install_cmd[@]}" "${dependencies[@]}" || exit 1
 }
+
+install_dependencies
 
 # Backup
 backup_timestamp=$(date +%Y-%m-%d-%H-%M-%S)
@@ -75,8 +83,6 @@ for f in "${dotfiles[@]}"; do
     mkdir -p "${HOME}/$(dirname "${f}")"
     ln -fsn "${dotfiles_folder}/${f}" "${HOME}/${f}"
 done
-
-install_dependencies
 
 source "$HOME/.bashrc"
 echo "Done!"
